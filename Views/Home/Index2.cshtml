@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+    string titulo = "Página principal";
+    int dia = DateTime.Now.Day;
+    int mes = DateTime.Now.Day;
+    int anyo = DateTime.Now.Year;
+
+    string cadena;
+    if(dia> 15)
+    {
+        cadena = "Estamos en la segunda parte de mes";
+    }
+    else
+    {
+        cadena = "Estamos en la primera mitad";
+    }
+    int[] dias_festivos = { 1, 17, 24, 30 };
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <h1>@titulo</h1>
+        <p>Fecha: @dia/@mes/@anyo</p>
+        <p>@cadena</p>
+        <h1>Dias</h1>
+        <ul>
+            @foreach (var dia_festivo in dias_festivos)
+            {
+                <li>Dia: @dia_festivo</li>
+            }
+        </ul>
+        <table border = "1">
+            @for (int fila = 1; fila <= 12; fila++ ){
+                <tr>
+                    @for (int columna = 1; columna <= 10; columna++)
+                    {
+                    <td>@fila*@columna = @(fila * columna)</td>
+                }
+                </tr>
+            }
+        
+        </table>
+    </div>
+</body>
+</html>
