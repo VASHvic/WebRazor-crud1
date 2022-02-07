@@ -61,5 +61,38 @@ namespace WebRazor.Models
             con.Close();
             return i;
         }
+        public int Modificar(Articulo art)
+        {
+            Conectar();
+            SqlCommand comando = new SqlCommand("update articulos set descripcion=@descripcion,precio=@precio where codigo=@codigo", con);
+            comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
+            comando.Parameters["@descripcion"].Value = art.Descripcion;
+            comando.Parameters.Add("@precio", SqlDbType.Float);
+            comando.Parameters["@precio"].Value = art.Precio;
+            comando.Parameters.Add("@codigo", SqlDbType.Int);
+            comando.Parameters["@codigo"].Value = art.Codigo;
+            con.Open();
+            int i = comando.ExecuteNonQuery();
+            con.Close();
+            return i;
+        }
+        public Articulo Recuperar(int codigo)  // com si fora get by id
+        {
+            Conectar();
+            SqlCommand comando = new SqlCommand("select codigo,descripcion,precio from articulos where codigo=@codigo", con);
+            comando.Parameters.Add("@codigo", SqlDbType.Int);
+            comando.Parameters["@codigo"].Value = codigo;
+            con.Open();
+            SqlDataReader registros = comando.ExecuteReader();
+            Articulo articulo = new Articulo();
+            if (registros.Read())
+            {
+                articulo.Codigo = int.Parse(registros["codigo"].ToString());
+                articulo.Descripcion = registros["descripcion"].ToString();
+                articulo.Precio = float.Parse(registros["precio"].ToString());
+            }
+            con.Close();
+            return articulo;
+        }
     }
 }

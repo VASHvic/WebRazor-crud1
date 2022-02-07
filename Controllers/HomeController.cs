@@ -26,7 +26,30 @@ namespace WebRazor.Controllers
             man.Alta(art);
             return RedirectToAction("Index"); ;
         }
-
-
+        public ActionResult Baja(int cod)
+        {
+            MantenimientoArticulo ma = new MantenimientoArticulo();
+            ma.Borrar(cod);
+            return RedirectToAction("Index");
+        }
+        public ActionResult Modificacion(int cod)
+        {
+            MantenimientoArticulo ma = new MantenimientoArticulo();
+            Articulo art = ma.Recuperar(cod);
+            return View(art);
+        }
+        [HttpPost]
+        public ActionResult Modificacion(FormCollection collection)
+        {
+            MantenimientoArticulo ma = new MantenimientoArticulo();
+            Articulo art = new Articulo
+            {
+                Codigo = int.Parse(collection["codigo"].ToString()),
+                Descripcion = collection["descripcion"].ToString(),
+                Precio = float.Parse(collection["precio"].ToString())
+            };
+            ma.Modificar(art);
+            return RedirectToAction("Index");
+        }
     }
 }

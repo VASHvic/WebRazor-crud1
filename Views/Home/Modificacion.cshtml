@@ -1,0 +1,30 @@
+﻿@model WebRazor.Models.Articulo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Modificacion</title>
+</head>
+<body>
+    <div>
+        <form method="post" action="/Home/Modificacion">
+            Codigo:
+            <input type="text" name="codigo" value="@Model.Codigo" readonly />
+            <br />
+            Descripcion:
+            <input type="text" name="descripcion" value="@Model.Descripcion" />
+            <br />
+            Precio:
+            <input type="text" name="precio" value="@Model.Precio" />
+            <br />
+            <input type="submit" value="Confirmar" />
+        </form>
+    </div>
+</body>
+</html>
