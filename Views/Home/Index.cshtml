@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebRazor.Models.Articulo>
+﻿
 @{
     Layout = null;
 }
@@ -12,30 +12,17 @@
 </head>
 <body>
     <div>
-        <a href="/Home/Alta">Ir a alta</a>
-        <table class="table">
-            <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Borrar</th>
-                <th>Modificar</th>
-            </tr>
-            @foreach (var articulo in Model)
-            {
-        <tr>
-            <td>@articulo.Codigo</td>
-            <td>@articulo.Descripcion</td>
-            <td>@articulo.Precio</td>
-            <td>
-                <a href="/Home/Baja?cod=@articulo.Codigo">borra?</a>
-            </td>
-            <td>
-                <a href="/Home/Modificacion?cod=@articulo.Codigo">modifica?</a>
-            </td>
-        </tr>
-             }
-        </table>
+        @using (Html.BeginForm())
+        {
+            <p>
+                Ingrese el código de articulo a buscar:
+                @Html.TextBox("Codigo")
+            </p>
+            <p>
+                <input type="submit" value="Buscar" />
+            </p>
+        }
+        @*</form>*@
     </div>
 </body>
 </html>

@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ModificacionArticulo</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("ModificacionArticulo", "Home", FormMethod.Post))
+        {
+            <p>
+                Codigo articulo:
+                @Html.Display("Codigo")
+                @Html.Hidden("Codigo")
+            </p>
+            <p>
+                Descripcion:
+                @Html.TextBox("Descripcion")
+            </p>
+            <p>
+                Descripcion:
+                @Html.TextBox("Precio")
+            </p>
+            <input type="submit" value="Confimar" />
+        }
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    </div>
+</body>
+</html>

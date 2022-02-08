@@ -8,48 +8,30 @@ namespace WebRazor.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            MantenimientoArticulo ma = new MantenimientoArticulo();
-            return View(ma.Listar());
-        }
-        public ActionResult Alta()
-        {
             return View();
         }
         [HttpPost]
-        public ActionResult Alta(FormCollection collection)
-        {
-            Articulo art = new Articulo();
-            //art.Codigo = int.Parse(collection["codigo"]);
-            art.Descripcion = collection["descripcion"];
-            art.Precio = float.Parse(collection["precio"]);
-            MantenimientoArticulo man = new MantenimientoArticulo();
-            man.Alta(art);
-            return RedirectToAction("Index"); ;
-        }
-        public ActionResult Baja(int cod)
+        public ActionResult Index(FormCollection coleccion)
         {
             MantenimientoArticulo ma = new MantenimientoArticulo();
-            ma.Borrar(cod);
-            return RedirectToAction("Index");
-        }
-        public ActionResult Modificacion(int cod)
-        {
-            MantenimientoArticulo ma = new MantenimientoArticulo();
-            Articulo art = ma.Recuperar(cod);
-            return View(art);
+            Articulo art = ma.Recuperar(int.Parse(coleccion["Codigo"].ToString()));
+            if (art != null)
+                return View("ModificacionArticulo", art);
+            else
+                return View("ArticuloNoExistente");
         }
         [HttpPost]
-        public ActionResult Modificacion(FormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public ActionResult ModificacionArticulo(FormCollection collection)
         {
             MantenimientoArticulo ma = new MantenimientoArticulo();
-            Articulo art = new Articulo
-            {
-                Codigo = int.Parse(collection["codigo"].ToString()),
-                Descripcion = collection["descripcion"].ToString(),
-                Precio = float.Parse(collection["precio"].ToString())
-            };
+            Articulo art = new Articulo();
+            art.Codigo = int.Parse(collection["Codigo"].ToString());
+            art.Descripcion = collection["Descripcion"].ToString();
+            art.Precio = float.Parse(collection["Precio"].ToString());
             ma.Modificar(art);
             return RedirectToAction("Index");
+
         }
     }
 }
